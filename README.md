@@ -1,6 +1,12 @@
 texpack - A latex package manager for linux
 =======
 
-This tool follows the rules of the ArchLinux operating system. KISS - Only just get the packages you want.
+By Christopher Kruczek and Christopher Zell
 
-*texpack* allows you to install, upgrade and delete latex packages from the CTAN package resource.
+texpack is a latex package manager for linux. You can install, upgrade and remove packages that are provided by [CTAN](www.ctan.org)
+
+## Philosophy
+
+texpack is a tool designed by the rules of the KISS-Principle like the ArchLinux operating system.
+It just installs, upgrades or removes the packages you want to.
+
