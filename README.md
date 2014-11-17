@@ -3,7 +3,7 @@ texpack - A latex package manager for linux
 
 By Christopher Kruczek and Christopher Zell
 
-texpack is a latex package manager for linux. You can install, upgrade and remove packages that are provided by [CTAN](www.ctan.org)
+texpack is a latex package manager for linux. You can install, upgrade and remove packages that are provided by [CTAN](http://www.ctan.org)
 
 ## Philosophy
 
