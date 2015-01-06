@@ -9,6 +9,7 @@
 ### Query options
 
 *-Q* - List all installed packages
+*-Q packagename* - List information about package
 
 ### Remove options
 
