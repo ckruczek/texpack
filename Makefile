@@ -1,5 +1,5 @@
 CC=cc
-CCFLAGS=-lcurl -Wall
+CCFLAGS=-lcurl -std=c99 -pedantic -Wall -Wextra -Werror 
 SOURCES=$(wildcard src/*.c)
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=texpack
