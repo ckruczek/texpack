@@ -22,13 +22,15 @@ typedef enum{
 
     REMOVE
 
-} OptionType;
+} TpOptionType;
 
 /** Defines the basic parameter that were parsed from commandline
 **/
 struct Cmdline{
-    OptionType OPTIONS;
+    TpOptionType OPTIONS;
     char* package;
-} CMDLine;
+} TpCMDLine;
+
+
 
 #endif

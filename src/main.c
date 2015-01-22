@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[])
 {
-    OptionType t = SYNC;
+    TpOptionType t = SYNC;
     printf("%d\n",argc);
     printf("%s\n",argv[0]);
     printf("%d\n",t);
