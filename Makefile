@@ -8,7 +8,7 @@ endif
 endif
 
 
-CCFLAGS=-lcurl -std=c99 -pedantic -Wall -Wextra -Werror 
+CCFLAGS=-std=c99 -pedantic -Wall -Wextra -Werror $(INCLUDES)
 SOURCES=$(wildcard src/*.c)
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=texpack
@@ -22,8 +22,8 @@ clang: all
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(COMPILER) $(OBJECTS) -o $@
+	$(COMPILER) -lcurl  $(OBJECTS) -o $@
 
 .c.o:
-	$(COMPILER) $(CCFLAGS) $< -o $@
+	$(COMPILER) $(CCFLAGS) -c  $< -o $@
 
