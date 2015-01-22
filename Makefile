@@ -7,6 +7,7 @@ $(warning Neither clang nor cc is installed)
 endif
 endif
 
+INCLUDES=-Isrc/config
 
 CCFLAGS=-std=c99 -pedantic -Wall -Wextra -Werror $(INCLUDES)
 SOURCES=$(wildcard src/*.c)
