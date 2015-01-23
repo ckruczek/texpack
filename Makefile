@@ -13,6 +13,12 @@ SOURCES=$(wildcard src/*.c)
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=texpack
 
+cc: COMPILER=cc
+cc: all
+
+clang: COMPILER=clang
+clang: all
+
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
