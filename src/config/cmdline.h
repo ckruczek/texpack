@@ -12,15 +12,17 @@ QUERY_PACKAGE = Qs
 REMOVE = R
 **/
 typedef enum{
-    SYNC,
-    SYNC_SEARCH,
-    SYNC_UPDATE,
-    SYNC_UPDATE_ALL,
+    UPDATE = 1 << 0,
+    SEARCH = 1 << 1,
+    ALL    = 1 << 2,
+    SYNC   = 1 << 3,
+    QUERY  = 1 << 4,
+    REMOVE = 1 << 5,
 
-    QUERY,
-    QUERY_PACKAGE,
-
-    REMOVE
+    SYNC_SEARCH = SYNC | SEARCH,
+    SYNC_UPDATE = SYNC | UPDATE,
+    SYNC_UPDATE_ALL = SYNC | UPDATE | ALL,
+    QUERY_SEARCH = QUERY | SEARCH, 
 
 } TpOptionType;
 
