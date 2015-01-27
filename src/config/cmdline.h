@@ -21,21 +21,30 @@ typedef enum{
     SYNC   = 1 << 3,
     QUERY  = 1 << 4,
     REMOVE = 1 << 5,
+    NONE   = 1 << 6,
 
     SYNC_SEARCH = SYNC | SEARCH,
     SYNC_UPDATE = SYNC | UPDATE,
     SYNC_UPDATE_ALL = SYNC | UPDATE | ALL,
     QUERY_SEARCH = QUERY | SEARCH, 
+    
 
 } TpOptionType;
 
-/** Defines the basic parameter that were parsed from commandline
+/**
+Defines the basic parameter that were parsed from commandline
 **/
-struct Cmdline{
-    TpOptionType OPTIONS;
+typedef struct {
+    TpOptionType options;
     char* package;
-} TpCMDLine;
+} TpCmdlineConfig;
 
+
+void tpPrintCommonUsage();
+TpCmdlineConfig tpParseCmdline(int argc, char* argv[]);
+void tpParseSync(char* argv[],TpCmdlineConfig * config);
+void tpParseUpdate(char* argv[], TpCmdlineConfig * config);
+void tpParseRemove(char* argv[], TpCmdlineConfig * config);
 
 
 #endif
