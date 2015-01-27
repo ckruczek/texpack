@@ -1,6 +1,9 @@
 #ifndef CMDLINE_H
 #define CMDLINE_H
 
+#include <stdio.h>
+#include <getopt.h>
+
 /**
 Defines the possible options that can passed to the texpack
 SYNC = S
