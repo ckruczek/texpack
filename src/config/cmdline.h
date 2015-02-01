@@ -39,6 +39,13 @@ typedef struct {
     char* package;
 } TpCmdlineConfig;
 
+typedef void (*optionCallback)(TpCmdlineConfig *cfg, int arg,char *argv[]);
+
+typedef struct {
+    const char* optionString;
+    TpOptionType optionType;
+    optionCallback callback;
+} TpOptionConfig;
 
 void tpPrintCommonUsage();
 TpCmdlineConfig tpParseCmdline(int argc, char* argv[]);
