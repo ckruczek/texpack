@@ -6,8 +6,9 @@
 
 int main(int argc, char* argv[])
 {
-    TpOptionType t = SYNC;
-    printf("%d\n",argc);
-    printf("%s\n",argv[0]);
-    printf("%d\n",t);
+    TpCmdlineConfig cfg = tpParseCmdline(argc,argv);
+
+    printf("Selected options %d and package: %s\n",cfg.options,cfg.package);
+    free(cfg.package);
+    return 0;
 }
