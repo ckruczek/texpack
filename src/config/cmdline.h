@@ -48,10 +48,12 @@ typedef struct {
 } TpOptionConfig;
 
 void tpPrintCommonUsage();
-TpCmdlineConfig tpParseCmdline(int argc, char* argv[]);
-void tpParseSync(char* argv[],TpCmdlineConfig * config);
-void tpParseUpdate(char* argv[], TpCmdlineConfig * config);
-void tpParseRemove(char* argv[], TpCmdlineConfig * config);
+TpCmdlineConfig tpParseCmdline(int argc, char *argv[]);
+void tpParseSync(TpCmdlineConfig *cfg, int argc,char *argv[]); 
+void tpParseUpdate(TpCmdlineConfig *cfg, int argc, char *argv[]);
+void tpParseRemove(TpCmdlineConfig *cfg, int argc, char *argv[]);
+void tpInvalidOption();
 
+int tpExtractOption(char *param, char **option);
 
 #endif
