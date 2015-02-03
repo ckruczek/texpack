@@ -1,10 +1,10 @@
 COMPILER= $(shell which clang)
 
 ifeq ($(COMPILER),)
-COMPILER=$(shell which cc)
-ifeq ($(COMPILER),)
-$(warning Neither clang nor cc is installed)
-endif
+  COMPILER=$(shell which cc)
+  ifeq ($(COMPILER),)
+    $(warning Neither clang nor cc is installed)
+  endif
 endif
 
 INCLUDES=-Isrc/config
