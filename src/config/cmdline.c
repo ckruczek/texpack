@@ -94,10 +94,10 @@ void tpParseSync(TpCmdlineConfig *cfg,int argc, char *argv[])
         case SYNC:
         case SYNC_UPDATE:
         case SYNC_SEARCH:
-            if(argc >= 2)
+            if(argc >= 3)
             {
-                cfg->package = (char*)malloc(strlen(argv[1]) + 1);
-                strcpy(cfg->package,argv[1]);
+                cfg->package = (char*)malloc(strlen(argv[2]) + 1);
+                strcpy(cfg->package,argv[2]);
             }
             break;
         default:
