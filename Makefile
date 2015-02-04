@@ -20,6 +20,9 @@ cc: all
 clang: COMPILER=clang
 clang: all
 
+clean:
+	rm -rf $(EXECUTABLE) $(OBJECTS)
+
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
