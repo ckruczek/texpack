@@ -1,12 +1,11 @@
-texpack - A latex package manager for linux
+texpack - A latex package manager for arch linux
 =======
 
-By Christopher Kruczek and Christopher Zell
+### Summary
 
-texpack is a latex package manager for linux. You can install, upgrade and remove packages that are provided by [CTAN](http://www.ctan.org)
+texpack is a latex package manager for arch linux. The main goal of texpack is to provide a common interface for installing, upgrading and removing tex-live packages. texpack supports the official sources of [CTAN](http://www.ctan.org).
 
 ## Philosophy
 
 texpack is a tool designed by the rules of the KISS-Principle like the ArchLinux operating system.
-It just installs, upgrades or removes the packages you want to.
-
+Functionality provided by texpack is simmiliar to the one of pacman - the arch linux package manager.
