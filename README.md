@@ -1,4 +1,4 @@
-texpack - A latex package manager for arch linux [![GitHub version](https://img.shields.io/badge/version-dev-blue.svg?style=flat-square)]()
+texpack - A latex package manager for arch linux [![img](https://img.shields.io/badge/version-dev-blue.svg?style=flat-square )](https://github.com/ckruczek/texpack/tree/develop)
 =======
 
 ### Summary
