@@ -20,5 +20,8 @@
 *.so.*
 *.dylib
 
+# vim swap files
+.*.*.swp
+
 # We don't want texpack as binary in the repository
 texpack
