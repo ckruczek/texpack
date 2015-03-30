@@ -23,11 +23,11 @@
 
 TpOptionConfig OPTIONS[] = 
 {
-    { "S",  SYNC, &tpParseSync },
-    { "Ss", SYNC_SEARCH,&tpParseSync },
-    { "Su", SYNC_UPDATE, &tpParseSync},
-    { "Sua", SYNC_UPDATE_ALL, &tpParseSync },
+    { 'S', { {'s',SEARCH },
+             {'u',UPDATE},
+             {'a',ALL } }, &tpParseSync },
 };
+
 
 int tpExtractOption(char *param, char **option)
 {
@@ -71,10 +71,10 @@ TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
             int size = sizeof(OPTIONS) / sizeof(OPTIONS[0]);
             for(int i = 0; i < size; i++)
             {
-                if(strcmp(opt,OPTIONS[i].optionString) == 0)
+                TpOptionConfig ocfg = OPTIONS[i];
+                if(opt[0] == ocfg.mainOption)
                 {
-                    cfg.options = OPTIONS[i].optionType;        
-                    OPTIONS[i].callback(&cfg,argc,argv);
+                    ocfg.callback(&cfg,argc,argv, opt+1);
                 }
             }
             if(cfg.options == NONE)
@@ -87,20 +87,32 @@ TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
     return cfg;
 }
 
-void tpParseSync(TpCmdlineConfig *cfg,int argc, char *argv[])
+void tpParseSync(TpCmdlineConfig *cfg,int argc, char *argv[], char *rest)
 {
-   switch(cfg->options)
-   {
-        case SYNC:
-        case SYNC_UPDATE:
-        case SYNC_SEARCH:
-            if(argc >= 3)
-            {
-                cfg->package = (char*)malloc(strlen(argv[2]) + 1);
-                strcpy(cfg->package,argv[2]);
+    cfg->options = SYNC;
+    if(argc == 3)
+    {
+        if(strcmp(argv[2],"--help") == 0)
+        {
+            tpPrintSyncHelp();
+            return;
+        }
+        char *temp = rest;
+        while(*temp)
+        {
+            for(int i = 0; i < MAX_SUBOPTIONS; i++)
+            {   
+                TpOptionConfig ocfg = OPTIONS[0];
+                if(OPTIONS[0].subOptions[i].name == *temp)
+                {
+                    printf("found %c in string\n",*temp);
+                    cfg->options |= ocfg.subOptions[i].type;
+                }
+                
             }
-            break;
-        default:
-            break;
-   }
+            temp++;
+        }
+        printf("%d syncsearch",SYNC_SEARCH);
+        printf("cfg %d\n",cfg->options);
+    }
 }
