@@ -48,7 +48,19 @@ void tpPrintCommonUsage()
     fprintf(stdout, "\ttexpack {-S} <options> [package]\n");
     fprintf(stdout, "\ttexpack {-Q} <options> [package]\n");
     fprintf(stdout, "\ttexpack {-R} <options> [package]\n");
-    fprintf(stdout, "use 'texpack {-h} with an option for available options\n");
+    fprintf(stdout, "use 'texpack {-S|-Q|-R} {--help}' with an option for available options\n");
+}
+
+void tpPrintSyncHelp()
+{
+    fprintf(stdout,"texpack -S packagename:\n");
+    fprintf(stdout,"\tInstall or reinstall the package.\n");
+    fprintf(stdout,"texpack -Ss packagename:\n");
+    fprintf(stdout,"\tSearch the global repository for the package, only a part of \n\tthe package suffice.\n");
+    fprintf(stdout,"texpack -Su packagename:\n");
+    fprintf(stdout,"\tUpgrade the given package.\n");
+    fprintf(stdout,"texpack -Sua:\n");
+    fprintf(stdout,"\tUpgrade all packages given in the database.\n");
 }
 
 void tpInvalidOption()
