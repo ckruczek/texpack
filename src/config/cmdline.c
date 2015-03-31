@@ -23,9 +23,9 @@
 
 TpOptionConfig OPTIONS[] = 
 {
-    { 'S', { {'s',SEARCH },
-             {'u',UPDATE},
-             {'a',ALL } }, &tpParseSync },
+    { {'S',SYNC}, { {'s',SEARCH },
+                    {'u',UPDATE},
+                    {'a',ALL } }, NULL },
 };
 
 
@@ -84,9 +84,15 @@ TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
             for(int i = 0; i < size; i++)
             {
                 TpOptionConfig ocfg = OPTIONS[i];
-                if(opt[0] == ocfg.mainOption)
+                if(opt[0] == ocfg.mainOption.name)
                 {
-                    ocfg.callback(&cfg,argc,argv, opt+1);
+                    cfg.mainOption = ocfg.mainOption.name;
+                    cfg.subOptions = (char*)malloc(sizeof(char) * (strlen(opt) - 1)); 
+                    if(strlen(opt) > 1)
+                    {
+                        strncpy(cfg.subOptions,opt+1,strlen(opt) - 1);
+                    }
+                    tpParseSubOptions(&cfg,ocfg.mainOption.type, argc,argv);
                 }
             }
             if(cfg.options == NONE)
@@ -99,9 +105,9 @@ TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
     return cfg;
 }
 
-void tpParseSync(TpCmdlineConfig *cfg,int argc, char *argv[], char *rest)
+void tpParseSubOptions(TpCmdlineConfig *cfg,TpOptionType rootType, int argc, char *argv[])
 {
-    cfg->options = SYNC;
+    cfg->options = rootType;
     if(argc == 3)
     {
         if(strcmp(argv[2],"--help") == 0)
@@ -109,7 +115,8 @@ void tpParseSync(TpCmdlineConfig *cfg,int argc, char *argv[], char *rest)
             tpPrintSyncHelp();
             return;
         }
-        char *temp = rest;
+
+        char *temp = cfg->subOptions;
         while(*temp)
         {
             for(int i = 0; i < MAX_SUBOPTIONS; i++)
@@ -120,11 +127,10 @@ void tpParseSync(TpCmdlineConfig *cfg,int argc, char *argv[], char *rest)
                     printf("found %c in string\n",*temp);
                     cfg->options |= ocfg.subOptions[i].type;
                 }
-                
+
             }
             temp++;
         }
-        printf("%d syncsearch",SYNC_SEARCH);
-        printf("cfg %d\n",cfg->options);
     }
 }
+

@@ -59,6 +59,8 @@ Defines the basic parameter that were parsed from commandline
 **/
 typedef struct {
     TpOptionType options;
+    char mainOption;
+    char *subOptions;
     char* package;
 } TpCmdlineConfig;
 
@@ -68,11 +70,11 @@ typedef void (*helpCallback)();
 typedef struct {
     const char name;
     TpOptionType type;
-} TpSubOption;
+} TpOption;
 
 typedef struct {
-    const char mainOption;
-    const TpSubOption subOptions[MAX_SUBOPTIONS];
+    const TpOption mainOption;
+    const TpOption subOptions[MAX_SUBOPTIONS];
     optionCallback callback;
 } TpOptionConfig;
 
@@ -82,6 +84,7 @@ void tpPrintQueryHelp();
 void tpPrintRemoveHelp();
 
 TpCmdlineConfig tpParseCmdline(int argc, char *argv[]);
+void tpParseSubOptions(TpCmdlineConfig *cfg,TpOptionType rootType,int arg, char *argv[]);
 void tpParseSync(TpCmdlineConfig *cfg, int argc,char *argv[],char *rest); 
 void tpParseUpdate(TpCmdlineConfig *cfg, int argc, char *argv[], char *rest);
 void tpParseRemove(TpCmdlineConfig *cfg, int argc, char *argv[], char *rest);
