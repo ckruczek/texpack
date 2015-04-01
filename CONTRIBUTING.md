@@ -59,6 +59,11 @@ Further paragraphs come after blank lines.
     git checkout integration
     git am < patchname.patch
     ```
+### How to test
+
+* unfortunately there are currently no automated tests, so you need to test your code by hand
+* Submit only code that don't have any memory leaks -> check this with valgrind
+
   If no errors occured while patching test your changes again and e-mail your changes to us that we can review your
   code and integrate it into develop branch. If we approve your changes you can delete the branch safely by
   ```bash
