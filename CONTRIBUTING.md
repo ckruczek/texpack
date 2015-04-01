@@ -59,6 +59,7 @@ Further paragraphs come after blank lines.
     git checkout integration
     git am < patchname.patch
     ```
+    
 ### How to test
 
 * unfortunately there are currently no automated tests, so you need to test your code by hand
