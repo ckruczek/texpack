@@ -27,7 +27,9 @@
 
 int main(int argc, char* argv[])
 {
+    tpInitCmdConfig();
     tpParseCmdline(argc,argv);
+    tpFreeCmdConfig();
 
     return 0;
 }

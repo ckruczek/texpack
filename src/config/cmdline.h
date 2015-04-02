@@ -53,7 +53,6 @@ typedef enum{
 } TpOptionType;
 
 #define  MAX_SUBOPTIONS  4
-
 /**
 Defines the basic parameter that were parsed from commandline
 **/
@@ -64,8 +63,9 @@ typedef struct {
     char* package;
 } TpCmdlineConfig;
 
-typedef void (*optionCallback)(TpCmdlineConfig *cfg, int arg,char *argv[], char *rest);
-typedef void (*helpCallback)();
+static TpCmdlineConfig CMD_CFG;
+
+typedef void (*optionCallback)(TpCmdlineConfig *cfg, int arg,char *argv[]);
 
 typedef struct {
     const char name;
@@ -82,12 +82,14 @@ void tpPrintCommonUsage();
 void tpPrintSyncHelp();
 void tpPrintQueryHelp();
 void tpPrintRemoveHelp();
+void tpInitCmdConfig();
+void tpFreeCmdConfig();
 
-TpCmdlineConfig tpParseCmdline(int argc, char *argv[]);
-void tpParseSubOptions(TpCmdlineConfig *cfg,TpOptionType rootType,int arg, char *argv[]);
-void tpParseSync(TpCmdlineConfig *cfg, int argc,char *argv[],char *rest); 
-void tpParseUpdate(TpCmdlineConfig *cfg, int argc, char *argv[], char *rest);
-void tpParseRemove(TpCmdlineConfig *cfg, int argc, char *argv[], char *rest);
+void tpParseCmdline(int argc, char *argv[]);
+void tpParseSubOptions(TpOptionType rootType,int arg, char *argv[]);
+void tpParseSync(int argc,char *argv[],char *rest); 
+void tpParseUpdate(int argc, char *argv[], char *rest);
+void tpParseRemove(int argc, char *argv[], char *rest);
 void tpInvalidOption();
 
 int tpExtractOption(char *param, char **option);

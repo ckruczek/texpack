@@ -31,11 +31,22 @@ TpOptionConfig OPTIONS[] =
 /** 
     Init the global commandline config.
 **/
+void tpInitCmdConfig()
+{
+    CMD_CFG.options = NONE;
+    CMD_CFG.subOptions = (char*)malloc(sizeof(char));
+    CMD_CFG.package = (char*)malloc(sizeof(char));
+}
 
 /**
     Free everything from the commandline config
     that had reserved memory.
 **/
+void tpFreeCmdConfig()
+{
+    free(CMD_CFG.subOptions);
+    free(CMD_CFG.package);
+}
 /**
     Extract the option part from the commandline
     parameter without the leading '-'.
@@ -101,12 +112,9 @@ void tpInvalidOption()
     and move on to handling of particular
     options.
 **/
-TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
+void tpParseCmdline(int argc, char* argv[])
 {
-    TpCmdlineConfig cfg;
-    cfg.options = NONE;
-    cfg.package = "";
-    if(argc > 1)
+   if(argc > 1)
     {
         // extract only the part without the leading -
         char *opt = NULL;
@@ -118,23 +126,22 @@ TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
                 TpOptionConfig ocfg = OPTIONS[i];
                 if(opt[0] == ocfg.mainOption.name)
                 {
-                    cfg.mainOption = ocfg.mainOption.name;
-                    cfg.subOptions = (char*)malloc(sizeof(char) * (strlen(opt) - 1)); 
+                    CMD_CFG.mainOption = ocfg.mainOption.name;
+                    CMD_CFG.subOptions = realloc(CMD_CFG.subOptions,
+                                                sizeof(char) * (strlen(opt) - 1)); 
                     if(strlen(opt) > 1)
                     {
-                        strncpy(cfg.subOptions,opt+1,strlen(opt) - 1);
+                        strncpy(CMD_CFG.subOptions,opt+1,strlen(opt) - 1);
                     }
-                    tpParseSubOptions(&cfg,ocfg.mainOption.type, argc,argv);
+                    tpParseSubOptions(ocfg.mainOption.type, argc,argv);
                 }
             }
-            if(cfg.options == NONE)
+            if(CMD_CFG.options == NONE)
             {
                 tpInvalidOption();
             }
-            return cfg;
         }
     }
-    return cfg;
 }
 
 /**
@@ -145,9 +152,9 @@ TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
     @Param: argc - The number of arguments passed from commandline
     @Param: argv - The arguments passed from commandline
 **/
-void tpParseSubOptions(TpCmdlineConfig *cfg,TpOptionType rootType, int argc, char *argv[])
+void tpParseSubOptions(TpOptionType rootType, int argc, char *argv[])
 {
-    cfg->options = rootType;
+    CMD_CFG.options = rootType;
     if(argc == 3)
     {
         if(strcmp(argv[2],"--help") == 0)
@@ -156,7 +163,7 @@ void tpParseSubOptions(TpCmdlineConfig *cfg,TpOptionType rootType, int argc, cha
             return;
         }
 
-        char *temp = cfg->subOptions;
+        char *temp = CMD_CFG.subOptions;
         while(*temp)
         {
             for(int i = 0; i < MAX_SUBOPTIONS; i++)
@@ -165,7 +172,7 @@ void tpParseSubOptions(TpCmdlineConfig *cfg,TpOptionType rootType, int argc, cha
                 if(OPTIONS[0].subOptions[i].name == *temp)
                 {
                     printf("found %c in string\n",*temp);
-                    cfg->options |= ocfg.subOptions[i].type;
+                    CMD_CFG.options |= ocfg.subOptions[i].type;
                 }
 
             }
