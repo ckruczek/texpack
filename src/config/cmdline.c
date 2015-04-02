@@ -28,7 +28,28 @@ TpOptionConfig OPTIONS[] =
                     {'a',ALL } }, NULL },
 };
 
+/** 
+    Init the global commandline config.
+**/
 
+/**
+    Free everything from the commandline config
+    that had reserved memory.
+**/
+/**
+    Extract the option part from the commandline
+    parameter without the leading '-'.
+    @Param: param - The parameter to extract
+    the string without the '-'
+    @Param: option - A array of pointer where the
+    result of the extraction goes.
+    
+    E.g.: param = '-Syua' option:["Syua"]
+    @Return: 0 - Indicating extraction was 
+    sucessfull
+            -1 - Indicating extraction was
+                unsucessfull
+**/
 int tpExtractOption(char *param, char **option)
 {
     *option = strtok(param,"-");
@@ -38,9 +59,9 @@ int tpExtractOption(char *param, char **option)
     return -1;
 }
 
-/*
+/**
    Print the common usage for texpack
- */
+ **/
 void tpPrintCommonUsage()
 {
     fprintf(stdout, "usage: texpack <operation> [...]\n");
@@ -51,6 +72,9 @@ void tpPrintCommonUsage()
     fprintf(stdout, "use 'texpack {-S|-Q|-R} {--help}' with an option for available options\n");
 }
 
+/**
+    Print the particular help for the Sync option.
+**/
 void tpPrintSyncHelp()
 {
     fprintf(stdout,"texpack -S packagename:\n");
@@ -63,12 +87,20 @@ void tpPrintSyncHelp()
     fprintf(stdout,"\tUpgrade all packages given in the database.\n");
 }
 
+/**
+    Print the invalid option error message
+**/
 void tpInvalidOption()
 {
     printf("Invalid option\n");
     tpPrintCommonUsage();
 }
 
+/**
+    Parse the commandline parameter
+    and move on to handling of particular
+    options.
+**/
 TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
 {
     TpCmdlineConfig cfg;
@@ -105,6 +137,14 @@ TpCmdlineConfig tpParseCmdline(int argc, char* argv[])
     return cfg;
 }
 
+/**
+    Parse suboptions and check if they match
+    any predeclared subOptions within the 
+    OPTIONS map.
+    @Param: rootType - The root type the suboptions belong to.
+    @Param: argc - The number of arguments passed from commandline
+    @Param: argv - The arguments passed from commandline
+**/
 void tpParseSubOptions(TpCmdlineConfig *cfg,TpOptionType rootType, int argc, char *argv[])
 {
     cfg->options = rootType;
