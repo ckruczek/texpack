@@ -32,33 +32,26 @@ Further paragraphs come after blank lines.
 
 * **Don't** push to develop or master
 
-* **Don't** create a feature branch on remote rather than create it locally.
-  * After you finished you test your issue by integrating it into a local test-branch
-    * Pull from develop to get latest changes:
-      * Either
-      ```bash
-      git remote update -p
-      git merge @{u}
-      ```
-      The first command will update all references from remote with your local and -p deletes all local branches
-      that have had deleted on remote. 
-      * Or
-      ```bash
-      git pull origin develop
-      ```
-    * Create the branch:
-    ```bash
-    git branch integration
-    ```
-    * Create a patch of your commit against develop:
-    ```bash
-    git format-patch develop --stdout > patchname.patch
-    ```
-    * Check if the integration works:
+* Create an issue branch for each of your changes and base them on develop
+  ```bash
+  git branch issue_(number) develop
+  ```
+  * After you finished working on the issue rebase it on integration
     ```bash
     git checkout integration
-    git am < patchname.patch
+    
+    git pull --ff origin integration
+    
+    git checkout issue_(number)
+    
+    git rebase integration
+    
+    git checkout integration
+    
+    git merge --ff-only issue_(number)
     ```
+* After you finished the integration process, set your issue to review.
+* After the reviewed changes are accepted the integration branch will be rebased on develop by the project owner
     
 ### How to test
 
