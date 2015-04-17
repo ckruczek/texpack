@@ -158,31 +158,26 @@ void tpParseCmdline(int argc, char* argv[])
     @Param: argv - The arguments passed from commandline
 **/
 void tpParseSubOptions(TpOptionType rootType, int argc, char *argv[])
+void tpParseSubOptions(TpOptionType rootType)
 {
     CMD_CFG.options = rootType;
-    if(argc == 3)
+
+    char *temp = CMD_CFG.subOptions;
+    while(*temp)
     {
-        if(strcmp(argv[2],"--help") == 0)
-        {
-            tpPrintSyncHelp();
-            return;
-        }
-
-        char *temp = CMD_CFG.subOptions;
-        while(*temp)
-        {
-            for(int i = 0; i < MAX_SUBOPTIONS; i++)
-            {   
-                TpOptionConfig ocfg = OPTIONS[0];
-                if(OPTIONS[0].subOptions[i].name == *temp)
-                {
-                    printf("found %c in string\n",*temp);
-                    CMD_CFG.options |= ocfg.subOptions[i].type;
-                }
-
+        for(int i = 0; i < MAX_SUBOPTIONS; i++)
+        {   
+            TpOptionConfig ocfg = OPTIONS[0];
+            if(OPTIONS[0].subOptions[i].name == *temp)
+            {
+                CMD_CFG.options |= ocfg.subOptions[i].type;
             }
-            temp++;
+            
+
         }
+        temp++;
+    }
+}
     }
 }
 
