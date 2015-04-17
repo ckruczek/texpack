@@ -65,7 +65,7 @@ typedef struct {
 
 static TpCmdlineConfig CMD_CFG;
 
-typedef void (*optionCallback)(TpCmdlineConfig *cfg, int arg,char *argv[]);
+typedef void (*optionCallback)(int arg,char *argv[]);
 
 typedef struct {
     const char name;

@@ -24,8 +24,8 @@
 TpOptionConfig OPTIONS[] = 
 {
     { {'S',SYNC}, { {'s',SEARCH },
-                    {'u',UPDATE},
-                    {'a',ALL } }, NULL },
+                      {'u',UPDATE},
+                      {'a',ALL } }, &tpProcessSync },
 };
 
 /** 
@@ -134,6 +134,10 @@ void tpParseCmdline(int argc, char* argv[])
                         strncpy(CMD_CFG.subOptions,opt+1,strlen(opt) - 1);
                     }
                     tpParseSubOptions(ocfg.mainOption.type, argc,argv);
+                    if(ocfg.callback != NULL)
+                    {
+                        ocfg.callback(argc,argv);
+                    }
                 }
             }
             if(CMD_CFG.options == NONE)
