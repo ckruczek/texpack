@@ -127,13 +127,14 @@ void tpParseCmdline(int argc, char* argv[])
                 if(opt[0] == ocfg.mainOption.name)
                 {
                     CMD_CFG.mainOption = ocfg.mainOption.name;
-                    CMD_CFG.subOptions = realloc(CMD_CFG.subOptions,
-                                                sizeof(char) * (strlen(opt) - 1)); 
+
                     if(strlen(opt) > 1)
                     {
+                        CMD_CFG.subOptions = realloc(CMD_CFG.subOptions,
+                                sizeof(char) * (strlen(opt) - 1)); 
                         strncpy(CMD_CFG.subOptions,opt+1,strlen(opt) - 1);
                     }
-                    tpParseSubOptions(ocfg.mainOption.type, argc,argv);
+                    tpParseSubOptions(ocfg.mainOption.type);
                     if(ocfg.callback != NULL)
                     {
                         ocfg.callback(argc,argv);
