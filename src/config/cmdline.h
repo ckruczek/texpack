@@ -86,10 +86,10 @@ void tpInitCmdConfig();
 void tpFreeCmdConfig();
 
 void tpParseCmdline(int argc, char *argv[]);
-void tpParseSubOptions(TpOptionType rootType,int arg, char *argv[]);
-void tpParseSync(int argc,char *argv[],char *rest); 
-void tpParseUpdate(int argc, char *argv[], char *rest);
-void tpParseRemove(int argc, char *argv[], char *rest);
+void tpParseSubOptions(TpOptionType rootType);
+void tpProcessSync(int argc,char *argv[]); 
+void tpProcessUpdate(int argc, char *argv[]);
+void tpProcessRemove(int argc, char *argv[]);
 void tpInvalidOption();
 
 int tpExtractOption(char *param, char **option);
