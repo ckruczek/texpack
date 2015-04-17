@@ -157,7 +157,6 @@ void tpParseCmdline(int argc, char* argv[])
     @Param: argc - The number of arguments passed from commandline
     @Param: argv - The arguments passed from commandline
 **/
-void tpParseSubOptions(TpOptionType rootType, int argc, char *argv[])
 void tpParseSubOptions(TpOptionType rootType)
 {
     CMD_CFG.options = rootType;
@@ -178,6 +177,26 @@ void tpParseSubOptions(TpOptionType rootType)
         temp++;
     }
 }
+
+void tpProcessSync(int argc, char *argv[])
+{
+    switch(CMD_CFG.options)
+    {
+        case SYNC:
+            printf("-S called %d %s\n",argc,argv[2]);
+            break;
+        case SYNC_SEARCH:
+            printf("-Ss called\n");
+            break;
+        case SYNC_UPDATE:
+            printf("-Su called\n");
+            break;
+        case SYNC_UPDATE_ALL:
+            printf("-Sua called\n");
+            break;
+        default:
+            printf("Error\n");
+            break;
     }
 }
 
