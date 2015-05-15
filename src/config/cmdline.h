@@ -42,7 +42,8 @@ typedef enum{
     SYNC   = 1 << 3,
     QUERY  = 1 << 4,
     REMOVE = 1 << 5,
-    NONE   = 1 << 6,
+    HELP   = 1 << 6,       
+    NONE   = 1 << 7,
 
     SYNC_SEARCH = SYNC | SEARCH,
     SYNC_UPDATE = SYNC | UPDATE,

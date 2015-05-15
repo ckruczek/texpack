@@ -160,7 +160,7 @@ void tpParseCmdline(int argc, char* argv[])
 void tpParseSubOptions(TpOptionType rootType)
 {
     CMD_CFG.options = rootType;
-
+    
     char *temp = CMD_CFG.subOptions;
     while(*temp)
     {
@@ -180,6 +180,9 @@ void tpParseSubOptions(TpOptionType rootType)
 
 void tpProcessSync(int argc, char *argv[])
 {
+    if(argc == 3 && strcmp(argv[2],"--help") == 0)
+        tpPrintSyncHelp();
+    
     switch(CMD_CFG.options)
     {
         case SYNC:
