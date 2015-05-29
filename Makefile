@@ -9,7 +9,7 @@ endif
 
 INCLUDES=-Isrc/config
 
-CCFLAGS=-g -std=c99 -pedantic -Wall -Wextra -Werror $(INCLUDES)
+CCFLAGS=-g -std=c99 -pedantic -Wall -Wextra $(INCLUDES)
 SOURCES=$(shell find src -name '*.c')
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=texpack
