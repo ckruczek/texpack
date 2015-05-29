@@ -36,14 +36,15 @@ QUERY_PACKAGE = Qs
 REMOVE = R
 **/
 typedef enum{
-    UPDATE = 1 << 0,
-    SEARCH = 1 << 1,
-    ALL    = 1 << 2,
-    SYNC   = 1 << 3,
-    QUERY  = 1 << 4,
-    REMOVE = 1 << 5,
-    HELP   = 1 << 6,       
-    NONE   = 1 << 7,
+    
+    NONE = 1 << 0,
+    UPDATE = 1 << 1,
+    SEARCH = 1 << 2,
+    ALL    = 1 << 3,
+    SYNC   = 1 << 4,
+    QUERY  = 1 << 5,
+    REMOVE = 1 << 6,
+    HELP   = 1 << 7,
 
     SYNC_SEARCH = SYNC | SEARCH,
     SYNC_UPDATE = SYNC | UPDATE,
