@@ -77,9 +77,9 @@ void tpFreeCmdConfig();
 
 void tpParseCmdline(int argc, char *argv[]);
 
-void tpProcessSync(char opt); 
-void tpProcessQuery(char opt);
-void tpProcessRemove(char opt);
+void tpParseSync(char opt); 
+void tpParseQuery(char opt);
+void tpParseRemove(char opt);
 void tpInvalidOption();
 
 #endif

@@ -115,20 +115,20 @@ void tpParseCmdline(int argc, char* argv[])
         // check whether sync is somehow set
         if(CMD_CFG.options & SYNC)
         {
-            tpProcessSync(option);
+            tpParseSync(option);
         }
         else if(CMD_CFG.options & QUERY)
         {
-            tpProcessSync(option);
+            tpParseSync(option);
         }
         else if(CMD_CFG.options & REMOVE)
         {
-            tpProcessSync(option);
+            tpParseSync(option);
         }
     }
 }
 
-void tpProcessSync(char opt)
+void tpParseSync(char opt)
 {
     switch(opt)
     {
