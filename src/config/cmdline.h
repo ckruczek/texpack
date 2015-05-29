@@ -25,6 +25,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <getopt.h>
+
 /**
 Defines the possible options that can passed to the texpack
 SYNC = S
@@ -49,6 +51,7 @@ typedef enum{
     SYNC_SEARCH = SYNC | SEARCH,
     SYNC_UPDATE = SYNC | UPDATE,
     SYNC_UPDATE_ALL = SYNC | UPDATE | ALL,
+            
     QUERY_SEARCH = QUERY | SEARCH, 
     
 

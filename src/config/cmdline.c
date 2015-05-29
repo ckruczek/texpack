@@ -27,6 +27,7 @@
 void tpInitCmdConfig()
 {
     CMD_CFG.options = NONE;
+    CMD_CFG.package = malloc(sizeof(char));
 }
 
 /**
@@ -82,22 +83,66 @@ void tpInvalidOption()
 **/
 void tpParseCmdline(int argc, char* argv[])
 {
+    char *optionString = "SQRsua";
+    char *packageName;
+    char option;
+    
+    while((option = getopt(argc,argv,optionString)) != -1)
     {
+        switch(option)
         {
+            case 'S':
+                CMD_CFG.options = SYNC;
+                break;
+            case 'Q':
+                CMD_CFG.options = QUERY;
+                break;
+            case 'R':
+                CMD_CFG.options = REMOVE;
+                break;
+            default:
+                CMD_CFG.options = NONE;
+                break;
         }
+        if(CMD_CFG.options != NONE)
+            break;
     }
     
+    // reset the index for parsing and move on to suboptions
+    optind = 1;
+    while((option =getopt(argc,argv,optionString)) != -1)
     {
+        // check whether sync is somehow set
+        if(CMD_CFG.options & SYNC)
+        {
+            tpProcessSync(option);
+        }
+        else if(CMD_CFG.options & QUERY)
+        {
+            tpProcessSync(option);
+        }
+        else if(CMD_CFG.options & REMOVE)
+        {
+            tpProcessSync(option);
         }
     }
 }
 
+void tpProcessSync(char opt)
 {
+    switch(opt)
     {
+        case 's':
+            CMD_CFG.options |= SEARCH;
             break;
+        case 'u':
+            CMD_CFG.options |= UPDATE;
             break;
+        case 'a':
+            CMD_CFG.options |= ALL;
             break;
         default:
+            CMD_CFG.options = NONE;
             break;
     }
 }
