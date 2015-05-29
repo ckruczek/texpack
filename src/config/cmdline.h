@@ -54,31 +54,16 @@ typedef enum{
 
 } TpOptionType;
 
-#define  MAX_SUBOPTIONS  4
 /**
 Defines the basic parameter that were parsed from commandline
 **/
 typedef struct {
     TpOptionType options;
-    char mainOption;
-    char *subOptions;
     char* package;
 } TpCmdlineConfig;
 
 static TpCmdlineConfig CMD_CFG;
 
-typedef void (*optionCallback)(int arg,char *argv[]);
-
-typedef struct {
-    const char name;
-    TpOptionType type;
-} TpOption;
-
-typedef struct {
-    const TpOption mainOption;
-    const TpOption subOptions[MAX_SUBOPTIONS];
-    optionCallback callback;
-} TpOptionConfig;
 
 void tpPrintCommonUsage();
 void tpPrintSyncHelp();
@@ -88,12 +73,10 @@ void tpInitCmdConfig();
 void tpFreeCmdConfig();
 
 void tpParseCmdline(int argc, char *argv[]);
-void tpParseSubOptions(TpOptionType rootType);
-void tpProcessSync(int argc,char *argv[]); 
-void tpProcessUpdate(int argc, char *argv[]);
-void tpProcessRemove(int argc, char *argv[]);
-void tpInvalidOption();
 
-int tpExtractOption(char *param, char **option);
+void tpProcessSync(char opt); 
+void tpProcessQuery(char opt);
+void tpProcessRemove(char opt);
+void tpInvalidOption();
 
 #endif
