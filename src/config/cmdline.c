@@ -27,7 +27,6 @@
 void tpInitCmdConfig()
 {
     CMD_CFG.options = NONE;
-    CMD_CFG.package = malloc(sizeof(char));
 }
 
 /**
@@ -84,7 +83,6 @@ void tpInvalidOption()
 void tpParseCmdline(int argc, char* argv[])
 {
     char *optionString = "SQRsua";
-    char *packageName;
     char option;
     
     while((option = getopt(argc,argv,optionString)) != -1)
