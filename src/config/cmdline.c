@@ -127,6 +127,12 @@ void tpParseCmdline(int argc, char* argv[])
     tpGatherPackagename(argc,argv);
 }
 
+/**
+ * This method is responsible for gathering package names from
+ * commandline.
+ * @param argc - The amount of commandline parameters
+ * @param argv - The commandline parameter
+ */
 void tpGatherPackagename(int argc, char* argv[])
 {
     if(optind < argc)
@@ -135,6 +141,12 @@ void tpGatherPackagename(int argc, char* argv[])
     }
 }
 
+/**
+ * This methods is responsible regarding the options
+ * for the sync mechanism.So if -S is the main parameter
+ * this method is called to gather possible suboptions.
+ * @param opt The suboption. Allowed suboptions are 's','u' and 'a'
+ */
 void tpParseSync(char opt)
 {
     switch(opt)
