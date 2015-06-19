@@ -151,3 +151,8 @@ void tpParseSync(char opt)
     }
 }
 
+void tpParseQuery(char opt)
+{
+    
+}
+
