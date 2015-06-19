@@ -124,6 +124,15 @@ void tpParseCmdline(int argc, char* argv[])
             tpParseSync(option);
         }
     }
+    tpGatherPackagename(argc,argv);
+}
+
+void tpGatherPackagename(int argc, char* argv[])
+{
+    if(optind < argc)
+    {
+        CMD_CFG.package = strdup(argv[optind]);
+    }
 }
 
 void tpParseSync(char opt)
@@ -138,9 +147,6 @@ void tpParseSync(char opt)
             break;
         case 'a':
             CMD_CFG.options |= ALL;
-            break;
-        default:
-            CMD_CFG.options = NONE;
             break;
     }
 }
