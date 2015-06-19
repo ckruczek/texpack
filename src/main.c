@@ -19,9 +19,6 @@
  * 
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
 /** texpack related includes **/
 #include "cmdline.h"
 
