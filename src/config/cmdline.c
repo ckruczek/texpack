@@ -67,6 +67,17 @@ void tpPrintSyncHelp()
 }
 
 /**
+    Print the particular help for the query option.
+**/
+void tpPrintQueryHelp()
+{
+    fprintf(stdout,"texpack -Q:\n");
+    fprintf(stdout,"\tList all installed packages.\n");
+    fprintf(stdout,"texpack -Qs packagename:\n");
+    fprintf(stdout,"\tSearch the local package database for a package.\n\tDisplays package informationen.\n");
+}
+
+/**
     Print the invalid option error message
 **/
 void tpInvalidOption()
