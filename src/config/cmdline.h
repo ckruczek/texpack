@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
+#include <ctype.h>
 
 /**
 Defines the possible options that can passed to the texpack
@@ -78,6 +79,7 @@ void tpFreeCmdConfig();
 void tpParseCmdline(int argc, char *argv[]);
 void tpGatherPackagename(int argc,char*argv[]);
 void tpCheckForHelp();
+void tpProcess();
 void tpParseSuboptions(char opt); 
 void tpInvalidOption();
 

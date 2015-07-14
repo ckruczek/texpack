@@ -102,7 +102,10 @@ void tpInvalidOption()
 **/
 void tpParseCmdline(int argc, char* argv[])
 {
-    char *optionString = "SQRsua";
+    // prevent getopt to print error message on
+    // unknown parameter
+    opterr = 0;
+    char *optionString = "SQRsuah";
     char option;
     
     while((option = getopt(argc,argv,optionString)) != -1)
@@ -126,6 +129,14 @@ void tpParseCmdline(int argc, char* argv[])
             break;
     }
     
+    for(int i = optind; i < argc; i++)
+    {
+        if(strcmp(argv[i],"--help") == 0 )
+        {
+            CMD_CFG.options |= HELP;
+        }
+    }
+    
     // reset the index for parsing and move on to suboptions
     optind = 1;
     while((option =getopt(argc,argv,optionString)) != -1)
@@ -133,7 +144,7 @@ void tpParseCmdline(int argc, char* argv[])
         tpParseSuboptions(option);
     }
     tpGatherPackagename(argc,argv);
-    tpCheckForHelp();
+    tpProcess();
 }
 
 /**
@@ -159,6 +170,9 @@ void tpParseSuboptions(char opt)
 {
     TpOptionType temp;
     
+    if(isupper(opt))
+        return;
+    
     switch(opt)
     {
         case 's':
@@ -173,17 +187,66 @@ void tpParseSuboptions(char opt)
         default:
             temp = NONE;
     }
+    CMD_CFG.options |= temp;
 }
-
 /**
- * This methods checks whether --help is set as package name
- * This indicates a help option for some parameter.
- * So it sets the corresponding HELP flag in the options field.
+ * This methods process the final result of the commandline
+ * parameter. 
+ * It delegates then to the methods responsible for further
+ * processing.
  */
-void tpCheckForHelp()
+void tpProcess()
 {
-    if(CMD_CFG.package! != NULL && strcmp(CMD_CFG.package,"--help") == 0)
+    TpOptionType options = CMD_CFG.options;
+    
+    if((options & SYNC) && (options & HELP))
     {
-        CMD_CFG.options |= HELP;
+        tpPrintSyncHelp();
+        return;
+    }
+    if((options & QUERY) && (options & HELP))
+    {
+        tpPrintQueryHelp();
+        return;
+    }
+    if((options & REMOVE) && (options & HELP))
+    {
+        tpPrintRemoveHelp();
+        return;
+    }
+    
+    if(options & NONE)
+    {
+        tpInvalidOption();
+        return;
+    }
+    
+    switch(options)
+    {
+        case SYNC:
+            fprintf(stdout,"Sync choosen\n");
+            break;
+        case SYNC_SEARCH:
+            fprintf(stdout,"SYNC_SEARCH choosen with '%s'\n",CMD_CFG.package);
+            break;
+        case SYNC_UPDATE:
+            fprintf(stdout,"SYNC_UPDATE choosen with '%s'\n",CMD_CFG.package);
+            break;
+        case SYNC_UPDATE_ALL:
+            fprintf(stdout,"SYNC_UPDATE_ALL choosen\n");
+            break;
+        case QUERY:
+            fprintf(stdout,"QUERY choosen\n");
+            break;
+        case QUERY_SEARCH:
+            fprintf(stdout,"QUERY_SEARCH choosen with '%s'\n",CMD_CFG.package);
+            break;
+        case REMOVE:
+            fprintf(stdout,"REMOVE choosen\n");
+            break;
+        case NONE:
+        default:
+            tpInvalidOption();
+            break;
     }
 }
