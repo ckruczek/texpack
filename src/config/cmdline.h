@@ -78,9 +78,7 @@ void tpFreeCmdConfig();
 void tpParseCmdline(int argc, char *argv[]);
 void tpGatherPackagename(int argc,char*argv[]);
 
-void tpParseSync(char opt); 
-void tpParseQuery(char opt);
-void tpParseRemove(char opt);
+void tpParseSuboptions(char opt); 
 void tpInvalidOption();
 
 #endif

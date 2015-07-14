@@ -110,19 +110,7 @@ void tpParseCmdline(int argc, char* argv[])
     optind = 1;
     while((option =getopt(argc,argv,optionString)) != -1)
     {
-        // check whether sync is somehow set
-        if(CMD_CFG.options & SYNC)
-        {
-            tpParseSync(option);
-        }
-        else if(CMD_CFG.options & QUERY)
-        {
-            tpParseSync(option);
-        }
-        else if(CMD_CFG.options & REMOVE)
-        {
-            tpParseSync(option);
-        }
+        tpParseSuboptions(option);
     }
     tpGatherPackagename(argc,argv);
 }
@@ -147,7 +135,7 @@ void tpGatherPackagename(int argc, char* argv[])
  * this method is called to gather possible suboptions.
  * @param opt The suboption. Allowed suboptions are 's','u' and 'a'
  */
-void tpParseSync(char opt)
+void tpParseSuboptions(char opt)
 {
     switch(opt)
     {
@@ -162,9 +150,3 @@ void tpParseSync(char opt)
             break;
     }
 }
-
-void tpParseQuery(char opt)
-{
-    
-}
-
