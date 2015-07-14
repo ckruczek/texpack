@@ -78,6 +78,15 @@ void tpPrintQueryHelp()
 }
 
 /**
+    Print the particular help for the remove option.
+**/
+void tpPrintRemoveHelp()
+{
+    fprintf(stdout,"texpack -Q packagename:\n");
+    fprintf(stdout,"\tRemove a package from the system.\n");
+}
+
+/**
     Print the invalid option error message
 **/
 void tpInvalidOption()
