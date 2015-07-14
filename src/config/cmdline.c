@@ -146,7 +146,7 @@ void tpGatherPackagename(int argc, char* argv[])
 {
     if(optind < argc)
     {
-        CMD_CFG.package = strdup(argv[optind]);
+        CMD_CFG.package = argv[optind];
     }
 }
 
