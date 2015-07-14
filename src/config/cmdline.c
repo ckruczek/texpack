@@ -133,6 +133,7 @@ void tpParseCmdline(int argc, char* argv[])
         tpParseSuboptions(option);
     }
     tpGatherPackagename(argc,argv);
+    tpCheckForHelp();
 }
 
 /**
@@ -171,5 +172,18 @@ void tpParseSuboptions(char opt)
             break;
         default:
             temp = NONE;
+    }
+}
+
+/**
+ * This methods checks whether --help is set as package name
+ * This indicates a help option for some parameter.
+ * So it sets the corresponding HELP flag in the options field.
+ */
+void tpCheckForHelp()
+{
+    if(CMD_CFG.package! != NULL && strcmp(CMD_CFG.package,"--help") == 0)
+    {
+        CMD_CFG.options |= HELP;
     }
 }
