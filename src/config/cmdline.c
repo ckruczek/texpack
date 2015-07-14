@@ -141,23 +141,26 @@ void tpGatherPackagename(int argc, char* argv[])
 }
 
 /**
- * This methods is responsible regarding the options
- * for the sync mechanism.So if -S is the main parameter
- * this method is called to gather possible suboptions.
- * @param opt The suboption. Allowed suboptions are 's','u' and 'a'
+ * This methods is responsible regarding the suboption
+ * parsing.
+ * @param opt - The suboption character.
  */
 void tpParseSuboptions(char opt)
 {
+    TpOptionType temp;
+    
     switch(opt)
     {
         case 's':
-            CMD_CFG.options |= SEARCH;
+            temp = SEARCH;
             break;
         case 'u':
-            CMD_CFG.options |= UPDATE;
+            temp = UPDATE;
             break;
         case 'a':
-            CMD_CFG.options |= ALL;
+            temp = ALL;
             break;
+        default:
+            temp = NONE;
     }
 }
