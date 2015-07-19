@@ -19,7 +19,7 @@
  * 
  */
 
-#include "cmdline.h"
+#include "cli.h"
 
 /** 
     Init the global commandline config.

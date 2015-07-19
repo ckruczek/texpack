@@ -20,7 +20,7 @@
  */
 
 /** texpack related includes **/
-#include "cmdline.h"
+#include "cli.h"
 
 int main(int argc, char* argv[])
 {
