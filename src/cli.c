@@ -1,5 +1,5 @@
 /* 
- * File:   cmdline.c
+ * File:   cli.c
  * Author: Christopher Kruczek
  * 
  * Copyright (C) 2015 The texpack Open Source Project
@@ -24,7 +24,7 @@
 /** 
     Init the global commandline config.
 **/
-void tpInitCmdConfig()
+void cli_init()
 {
     CMD_CFG.options = NONE;
 }
@@ -33,7 +33,7 @@ void tpInitCmdConfig()
     Free everything from the commandline config
     that had reserved memory.
 **/
-void tpFreeCmdConfig()
+void cli_free()
 {
     free(CMD_CFG.package);
 }
@@ -41,7 +41,7 @@ void tpFreeCmdConfig()
 /**
    Print the common usage for texpack
  **/
-void tpPrintCommonUsage()
+void cli_usage()
 {
     fprintf(stdout, "usage: texpack <operation> [...]\n");
     fprintf(stdout, "operations:\n");
@@ -54,7 +54,7 @@ void tpPrintCommonUsage()
 /**
     Print the particular help for the Sync option.
 **/
-void tpPrintSyncHelp()
+void cli_sync_usage()
 {
     fprintf(stdout,"texpack -S packagename:\n");
     fprintf(stdout,"\tInstall or reinstall the package.\n");
@@ -69,7 +69,7 @@ void tpPrintSyncHelp()
 /**
     Print the particular help for the query option.
 **/
-void tpPrintQueryHelp()
+void cli_query_usage()
 {
     fprintf(stdout,"texpack -Q:\n");
     fprintf(stdout,"\tList all installed packages.\n");
@@ -80,7 +80,7 @@ void tpPrintQueryHelp()
 /**
     Print the particular help for the remove option.
 **/
-void tpPrintRemoveHelp()
+void cli_remove_usage()
 {
     fprintf(stdout,"texpack -Q packagename:\n");
     fprintf(stdout,"\tRemove a package from the system.\n");
@@ -89,10 +89,10 @@ void tpPrintRemoveHelp()
 /**
     Print the invalid option error message
 **/
-void tpInvalidOption()
+void cli_invalid_option()
 {
     printf("Invalid option\n");
-    tpPrintCommonUsage();
+    cli_usage();
 }
 
 /**
@@ -100,7 +100,7 @@ void tpInvalidOption()
     and move on to handling of particular
     options.
 **/
-void tpParseCmdline(int argc, char* argv[])
+void cli_parse(int argc, char* argv[])
 {
     // prevent getopt to print error message on
     // unknown parameter
@@ -141,10 +141,10 @@ void tpParseCmdline(int argc, char* argv[])
     optind = 1;
     while((option =getopt(argc,argv,optionString)) != -1)
     {
-        tpParseSuboptions(option);
+        cli_parse_suboptions(option);
     }
-    tpGatherPackagename(argc,argv);
-    tpProcess();
+    cli_gather_packagename(argc,argv);
+    cli_process();
 }
 
 /**
@@ -153,7 +153,7 @@ void tpParseCmdline(int argc, char* argv[])
  * @param argc - The amount of commandline parameters
  * @param argv - The commandline parameter
  */
-void tpGatherPackagename(int argc, char* argv[])
+void cli_gather_packagename(int argc, char* argv[])
 {
     if(optind < argc)
     {
@@ -166,9 +166,9 @@ void tpGatherPackagename(int argc, char* argv[])
  * parsing.
  * @param opt - The suboption character.
  */
-void tpParseSuboptions(char opt)
+void cli_parse_suboptions(char opt)
 {
-    TpOptionType temp;
+    cli_option_t temp;
     
     if(isupper(opt))
         return;
@@ -195,29 +195,29 @@ void tpParseSuboptions(char opt)
  * It delegates then to the methods responsible for further
  * processing.
  */
-void tpProcess()
+void cli_process()
 {
-    TpOptionType options = CMD_CFG.options;
+    cli_option_t options = CMD_CFG.options;
     
     if((options & SYNC) && (options & HELP))
     {
-        tpPrintSyncHelp();
+        cli_sync_usage();
         return;
     }
     if((options & QUERY) && (options & HELP))
     {
-        tpPrintQueryHelp();
+        cli_query_usage();
         return;
     }
     if((options & REMOVE) && (options & HELP))
     {
-        tpPrintRemoveHelp();
+        cli_remove_usage();
         return;
     }
     
     if(options & NONE)
     {
-        tpInvalidOption();
+        cli_invalid_option();
         return;
     }
     
@@ -246,7 +246,7 @@ void tpProcess()
             break;
         case NONE:
         default:
-            tpInvalidOption();
+            cli_invalid_option();
             break;
     }
 }

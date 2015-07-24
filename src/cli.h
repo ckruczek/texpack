@@ -1,5 +1,5 @@
 /* 
- * File:   cmdline.h
+ * File:   cli.h
  * Author: Christopher Kruczek
  * 
  * Copyright (C) 2015 The texpack Open Source Project
@@ -56,31 +56,31 @@ typedef enum{
     QUERY_SEARCH = QUERY | SEARCH, 
     
 
-} TpOptionType;
+} cli_option_t;
 
 /**
 Defines the basic parameter that were parsed from commandline
 **/
 typedef struct {
-    TpOptionType options;
+    cli_option_t options;
     char* package;
-} TpCmdlineConfig;
+} cli_config;
 
-static TpCmdlineConfig CMD_CFG;
+static cli_config CMD_CFG;
 
 
-void tpPrintCommonUsage();
-void tpPrintSyncHelp();
-void tpPrintQueryHelp();
-void tpPrintRemoveHelp();
-void tpInitCmdConfig();
-void tpFreeCmdConfig();
+void cli_usage();
+void cli_sync_usage();
+void cli_query_usage();
+void cli_remove_usage();
+void cli_init();
+void cli_free();
 
-void tpParseCmdline(int argc, char *argv[]);
-void tpGatherPackagename(int argc,char*argv[]);
-void tpCheckForHelp();
-void tpProcess();
-void tpParseSuboptions(char opt); 
-void tpInvalidOption();
+void cli_parse(int argc, char *argv[]);
+void cli_gather_packagename(int argc,char*argv[]);
+void cli_check_help();
+void cli_process();
+void cli_parse_suboptions(char opt); 
+void cli_invalid_option();
 
 #endif
