@@ -22,6 +22,15 @@
 #ifndef HTTP_H
 #define	HTTP_H
 
+#include<curl/curl.h>
+
+#define HTTP_PACKAGE_URL    "https://www.ctan.org/json/pkg"
+#define HTTP_PACKAGES_URL   "https://www.ctan.org/help/json/packages"
+#define HTTP_MIRROR         "http://mirror.ctan.org/"
+
+
+void http_init();
+
 
 #endif	
 

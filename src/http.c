@@ -18,3 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
+
+#include "http.h"
+
+static CURL *curl_handle;
+
+void http_init()
+{
+    curl_global_init(CURL_GLOBAL_ALL);
+    curl_handle = curl_easy_init();
+    curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+}
