@@ -20,6 +20,7 @@
  */
 
 #include "cli.h"
+#include "http.h"
 
 /** 
     Init the global commandline config.
@@ -225,6 +226,7 @@ void cli_process()
     {
         case SYNC:
             fprintf(stdout,"Sync choosen\n");
+            http_request(HTTP_PACKAGE_URL,NULL);
             break;
         case SYNC_SEARCH:
             fprintf(stdout,"SYNC_SEARCH choosen with '%s'\n",CMD_CFG.package);

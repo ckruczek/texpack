@@ -21,12 +21,13 @@
 
 /** texpack related includes **/
 #include "cli.h"
+#include "http.h"
 
 int main(int argc, char* argv[])
 {
     cli_init();
+    http_init();
     cli_parse(argc,argv);
-    //tpFreeCmdConfig();
-
+    http_cleanup();
     return 0;
 }
