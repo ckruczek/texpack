@@ -14,6 +14,9 @@ SOURCES=$(shell find src -name '*.c')
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=texpack
 
+debug: CCFLAGS += -DDEBUG
+debug: all
+
 cc: COMPILER=cc
 cc: all
 
