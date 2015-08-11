@@ -19,13 +19,66 @@
  * 
  */
 
+#include <string.h>
+
 #include "http.h"
 
 static CURL *curl_handle;
 
+/*
+ Initialize curl and set some basic information
+ * like the useragent.
+ */
 void http_init()
 {
     curl_global_init(CURL_GLOBAL_ALL);
     curl_handle = curl_easy_init();
     curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+}
+/*
+ * Cleanup the curl handle and the global configuration.
+ */
+void http_cleanup()
+{
+    curl_easy_cleanup(curl_handle);
+    curl_global_cleanup();
+}
+
+/*
+ * Perform a http request with the given url
+ * and the callback.
+ * @param url - The url used for the request
+ * @param callback - The callback used for the result processing.
+ *                   If the callback is NULL a default callback is used
+ *                   that just prints the content to the stdout.
+ */
+void http_request(char* url, write_callback callback)
+{
+    write_callback defaultcb = callback == NULL ? http_default_callback : callback;
+    curl_easy_setopt(curl_handle,CURLOPT_URL,url);
+    curl_easy_setopt(curl_handle,CURLOPT_WRITEFUNCTION,defaultcb);
+    curl_easy_perform(curl_handle);
+}
+
+/*
+ * A default callback handler for requests with no defined callbacks.
+ * This callback prints the result to the stdout.
+ */
+size_t http_default_callback(void *content, size_t size, size_t nmemb, void *userdata)
+{
+    (void)userdata;
+    
+    size_t realsize = size * nmemb;
+    char *realContent = malloc(realsize);
+    if(!realContent)
+    {
+        fprintf(stderr,"Can't allocate memory in http_default_callback\n");
+        return 0;
+    }
+    
+    memcpy(realContent,content,realsize);
+    fprintf(stdout,"%s\n",realContent);
+    free(realContent);
+    
+    return realsize;
 }

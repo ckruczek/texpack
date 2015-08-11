@@ -22,15 +22,26 @@
 #ifndef HTTP_H
 #define	HTTP_H
 
-#include<curl/curl.h>
+#include <stdlib.h>
+#include <string.h>
 
-#define HTTP_PACKAGE_URL    "https://www.ctan.org/json/pkg"
+#include <curl/curl.h>
+
+
+#if DEBUG
+   #define HTTP_PACKAGE_URL    "https://www.ctan.org/json/pkg/tex"
+#else
+    #define HTTP_PACKAGE_URL    "https://www.ctan.org/json/pkg"
+#endif
 #define HTTP_PACKAGES_URL   "https://www.ctan.org/help/json/packages"
 #define HTTP_MIRROR         "http://mirror.ctan.org/"
 
+typedef size_t (*write_callback)(void*,size_t,size_t,void*);
 
 void http_init();
-
+void http_cleanup();
+void http_request(char *url,write_callback callback);
+size_t http_default_callback(void*,size_t,size_t,void*);
 
 #endif	
 
