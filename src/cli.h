@@ -82,5 +82,6 @@ void cli_check_help();
 void cli_process();
 void cli_parse_suboptions(char opt); 
 void cli_invalid_option();
+void cli_check_packageName();
 
 #endif

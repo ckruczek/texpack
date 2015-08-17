@@ -222,25 +222,33 @@ void cli_process()
         return;
     }
     
+    
     switch(options)
     {
         case SYNC:
-            fprintf(stdout,"Sync choosen\n");
-            http_request(HTTP_PACKAGE_URL,NULL);
+            cli_check_packageName();
+            
+            char *url = http_create_url(CMD_CFG.package,HTTP_PACKAGES_URL_FORMAT);
+            http_request(url,NULL);
+            free(url);
             break;
         case SYNC_SEARCH:
+            cli_check_packageName();
             fprintf(stdout,"SYNC_SEARCH choosen with '%s'\n",CMD_CFG.package);
             break;
         case SYNC_UPDATE:
+            cli_check_packageName();
             fprintf(stdout,"SYNC_UPDATE choosen with '%s'\n",CMD_CFG.package);
             break;
         case SYNC_UPDATE_ALL:
             fprintf(stdout,"SYNC_UPDATE_ALL choosen\n");
             break;
         case QUERY:
+            
             fprintf(stdout,"QUERY choosen\n");
             break;
         case QUERY_SEARCH:
+            cli_check_packageName();
             fprintf(stdout,"QUERY_SEARCH choosen with '%s'\n",CMD_CFG.package);
             break;
         case REMOVE:
@@ -250,5 +258,17 @@ void cli_process()
         default:
             cli_invalid_option();
             break;
+    }
+}
+/*
+ * This function checks whether the CMD config packagename is not null
+ * if so, it exits the program. 
+ */
+void cli_check_packageName()
+{
+    if(CMD_CFG.package == NULL)
+    {
+        fprintf(stderr,"No package name were given, but needed.\n");
+        exit(0);
     }
 }
