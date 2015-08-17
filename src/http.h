@@ -27,19 +27,15 @@
 
 #include <curl/curl.h>
 
-
-#if DEBUG
-   #define HTTP_PACKAGE_URL    "https://www.ctan.org/json/pkg/tex"
-#else
-    #define HTTP_PACKAGE_URL    "https://www.ctan.org/json/pkg"
-#endif
-#define HTTP_PACKAGES_URL   "https://www.ctan.org/help/json/packages"
-#define HTTP_MIRROR         "http://mirror.ctan.org/"
+#define HTTP_PACKAGE_URL_FORMAT         "https://www.ctan.org/json/pkg/%s"
+#define HTTP_PACKAGES_URL_FORMAT        "https://www.ctan.org/json/packages?key=%s"
+#define HTTP_MIRROR                     "http://mirror.ctan.org/"
 
 typedef size_t (*write_callback)(void*,size_t,size_t,void*);
 
 void http_init();
 void http_cleanup();
+char* http_create_url(char *packageName,char *format);
 void http_request(char *url,write_callback callback);
 size_t http_default_callback(void*,size_t,size_t,void*);
 

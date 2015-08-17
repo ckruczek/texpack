@@ -73,7 +73,7 @@ size_t http_default_callback(void *content, size_t size, size_t nmemb, void *use
     if(!realContent)
     {
         fprintf(stderr,"Can't allocate memory in http_default_callback\n");
-        return 0;
+        exit(0);
     }
     
     memcpy(realContent,content,realsize);
@@ -81,4 +81,22 @@ size_t http_default_callback(void *content, size_t size, size_t nmemb, void *use
     free(realContent);
     
     return realsize;
+}
+
+/*
+ * Create a url from the given packagename and format
+ * @param packageName - The packagename used for the url format.
+ * @param format - The url format, e.g.HTTP_PACKAGE_URL_FORMAT or HTTP_PACKAGES_URL_FORMAT
+ */
+char* http_create_url(char* packageName, char* format)
+{
+    size_t combinedLength = strlen(packageName) + strlen(format);
+    char *url = malloc(combinedLength);
+    if(!url)
+    {
+        fprintf(stderr,"Can't allocate memory in http_create_url\n");
+        exit(-1);
+    }
+    sprintf(url,format,packageName);
+    return url;
 }
