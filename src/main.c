@@ -22,9 +22,11 @@
 /** texpack related includes **/
 #include "cli.h"
 #include "http.h"
+#include "util.h"
 
 int main(int argc, char* argv[])
 {
+    atexit(util_on_exit);
     cli_init();
     http_init();
     cli_parse(argc,argv);
