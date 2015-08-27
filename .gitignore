@@ -25,3 +25,20 @@
 
 # We don't want texpack as binary in the repository
 texpack
+
+# autoconf, automake files
+**/.deps
+compile
+aclocal.m4
+autom4te.cache/
+config.log
+config.status
+configure
+depcomp
+install-sh
+missing
+nbproject/
+programmflow.dot
+programmflow.pdf
+src/.dirstamp
+
