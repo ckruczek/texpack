@@ -32,7 +32,7 @@ Clone `texpack` from github: https://github.com/ckruczek/texpack
 ```bash
 $ git clone https://github.com/ckruczek/texpack
 $ cd texpack
-$ aclocal && autoconf && automake
+$ autoreconf --install
 $ ./configure
 $ make
 ```
