@@ -21,9 +21,12 @@
 
 /** texpack related includes **/
 #include "cli.h"
+#include "jsonc.h"
+
 
 int main(int argc, char* argv[])
 {
+    jc_print();
     cli_init();
     cli_parse(argc,argv);
     //tpFreeCmdConfig();
