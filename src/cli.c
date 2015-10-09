@@ -36,7 +36,7 @@ void cli_init()
 **/
 void cli_free()
 {
-    free(CMD_CFG.package);
+    
 }
 
 /**
@@ -227,14 +227,11 @@ void cli_process()
     {
         case SYNC:
             cli_check_packageName();
-            
-            char *url = http_create_url(CMD_CFG.package,HTTP_PACKAGES_URL_FORMAT);
-            http_request(url,NULL);
-            free(url);
+            http_search_key(CMD_CFG.package);
             break;
         case SYNC_SEARCH:
             cli_check_packageName();
-            fprintf(stdout,"SYNC_SEARCH choosen with '%s'\n",CMD_CFG.package);
+            http_search_key(CMD_CFG.package);
             break;
         case SYNC_UPDATE:
             cli_check_packageName();

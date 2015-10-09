@@ -40,8 +40,12 @@ void http_init()
  */
 void http_cleanup()
 {
-    curl_easy_cleanup(curl_handle);
-    curl_global_cleanup();
+    if(curl_handle != NULL)
+    {
+        curl_easy_cleanup(curl_handle);
+        curl_global_cleanup();
+    }
+         
 }
 
 /*
@@ -58,6 +62,13 @@ void http_request(char* url, write_callback callback)
     curl_easy_setopt(curl_handle,CURLOPT_URL,url);
     curl_easy_setopt(curl_handle,CURLOPT_WRITEFUNCTION,defaultcb);
     curl_easy_perform(curl_handle);
+}
+
+void http_search_key(char* key)
+{
+    char *url = http_create_url(key,HTTP_PACKAGES_URL_FORMAT);
+    http_request(url,NULL);
+    free(url);
 }
 
 /*

@@ -36,6 +36,7 @@ typedef size_t (*write_callback)(void*,size_t,size_t,void*);
 void http_init();
 void http_cleanup();
 char* http_create_url(char *packageName,char *format);
+void http_search_key(char *key);
 void http_request(char *url,write_callback callback);
 size_t http_default_callback(void*,size_t,size_t,void*);
 

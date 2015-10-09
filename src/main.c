@@ -30,6 +30,5 @@ int main(int argc, char* argv[])
     cli_init();
     http_init();
     cli_parse(argc,argv);
-    http_cleanup();
     return 0;
 }
